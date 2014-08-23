@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<characters>
+	<girl>
+		<name>Girl</name>
+		<image>girl.png</image>
+		<Xpos>80</Xpos>
+		<Ypos>416</Ypos>
+	</girl>
+	<skele>
+		<name>Skele</name>
+		<image>skele.png</image>
+		<Xpos>160</Xpos>
+		<Ypos>416</Ypos>
+	</skele>
+</characters>

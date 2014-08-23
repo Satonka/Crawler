@@ -1,5 +1,6 @@
 package com.sam.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
@@ -23,8 +24,8 @@ public class Entity extends Sprite {
 	public EntityManager			entityManager;
 	
 	
-	public Entity(String title, TiledMap mip, boolean moveable, Texture tex, float x, float y, EntityManager entman){
-		super(tex);
+	public Entity(String title, TiledMap mip, boolean moveable, String image, float x, float y, EntityManager entman){
+		super(new Texture(Gdx.files.internal(image)));
 		this.setPosition(x, y);
 		name = title;
 		map = mip;
@@ -38,7 +39,7 @@ public class Entity extends Sprite {
 		entityManager = entman;
 		entityManager.add(this);
 	}
-	
+
 	public TiledMapTileLayer.Cell getUp(){
 		return layer2.getCell((int) getX()/16, (int)getY()/16+1);
 	}
@@ -131,5 +132,9 @@ public class Entity extends Sprite {
 			}
 		}
 		return null;
+	}
+	
+	public void update(){
+		
 	}
 }

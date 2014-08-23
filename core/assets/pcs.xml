@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<characters>
+	<guy>
+		<name>Guy</name>
+		<image>guy.png</image>
+		<Xpos>64</Xpos>
+		<Ypos>432</Ypos>
+	</guy>
+</characters>
