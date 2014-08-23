@@ -29,4 +29,14 @@ public class LevelManager {
 	public LevelBase getCurrentLevel(){
 		return currentLevel;
 	}
+	
+	public LevelBase getLevel(String name){
+		for(int i = 0; i < levelList.size(); i++){
+			if(levelList.get(i).map.getProperties().containsKey(name)){
+				LevelBase level = levelList.get(i);
+				return level;
+			}
+		}
+		return null;
+	}
 }

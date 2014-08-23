@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<passageways>
+	<caveToField>
+		<name>ctf</name>
+		<from>Cave</from>
+		<to>Field</to>
+		<xpos>112</xpos>
+		<ypos>384</ypos>
+		<image>StairsUp.png</image>
+	</caveToField>
+	<fieldToCave>
+		<name>ftc</name>
+		<from>Field</from>
+		<to>Cave</to>
+		<xpos>112</xpos>
+		<ypos>384</ypos>
+		<image>StairsDown.png</image>
+	</fieldToCave>
+</Passageways>

@@ -5,4 +5,8 @@
 		<name>Cave</name>
 		<map>tester3.tmx</map>
 	</level1>
+	<level2>
+		<name>Field</name>
+		<map>tester4.tmx</map>
+	</level2>
 </levels>

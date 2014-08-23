@@ -2,16 +2,17 @@ package com.sam.entities.characters.pcs;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.sam.entities.characters.Character;
+import com.sam.enums.Type;
 import com.sam.managers.EntityManager;
-import com.sam.managers.GameKeys;
 import com.sam.managers.PcManager;
+import com.sam.managers.others.GameKeys;
 
 public class PlayerCharacter extends Character{
 	
 	public PcManager pcManager;
 
-	public PlayerCharacter(String title, TiledMap mip, String image, float x, float y, EntityManager entman, PcManager pcman) {
-		super(title, mip, image, x, y, entman);
+	public PlayerCharacter(TiledMap mip, String image, float x, float y, EntityManager entman, PcManager pcman) {
+		super(Type.Pc, mip, image, x, y, entman);
 		pcManager = pcman;
 		pcManager.add(this);
 		// TODO Auto-generated constructor stub
@@ -31,7 +32,5 @@ public class PlayerCharacter extends Character{
 			if(!isObjectLeft())
 				this.setPosition(getX()-16, getY());
 	}
-
-	
 	
 }

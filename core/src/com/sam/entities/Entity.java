@@ -8,13 +8,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.sam.enums.Type;
 import com.sam.managers.EntityManager;
 
 public class Entity extends Sprite {
 	
-	public String 					name;
 	public TiledMap					map;
-	public Boolean 					move;
+	public Boolean 					move, colidable;
 	public Texture					texture;
 	public Vector2					pos;
 	public TiledMapTileLayer.Cell	cell;
@@ -22,14 +22,15 @@ public class Entity extends Sprite {
 	public TiledMapTileLayer 		layer2;
 	public TiledMapTile				tile;
 	public EntityManager			entityManager;
+	public Type 					type;
 	
-	
-	public Entity(String title, TiledMap mip, boolean moveable, String image, float x, float y, EntityManager entman){
+	public Entity(Type typ, TiledMap mip, boolean moveable, boolean colide, String image, float x, float y, EntityManager entman){
 		super(new Texture(Gdx.files.internal(image)));
 		this.setPosition(x, y);
-		name = title;
+		type = typ;
 		map = mip;
 		move = moveable;
+		colidable = colide;
 		layer1 = map.getLayers().get(2);
 		layer2 = (TiledMapTileLayer) layer1;
 		cell = layer2.getCell((int)(getX()/16), (int)(getY()/16));
@@ -39,7 +40,7 @@ public class Entity extends Sprite {
 		entityManager = entman;
 		entityManager.add(this);
 	}
-
+	
 	public TiledMapTileLayer.Cell getUp(){
 		return layer2.getCell((int) getX()/16, (int)getY()/16+1);
 	}
@@ -100,7 +101,8 @@ public class Entity extends Sprite {
 	
 	public Entity getUpEntity(){
 		for(int i = 0; i < entityManager.entityList.size(); i++){
-			if(entityManager.entityList.get(i).getX() == this.getX() && entityManager.entityList.get(i).getY() == this.getY() + 16){
+			if(entityManager.entityList.get(i).getX() == this.getX() && entityManager.entityList.get(i).getY() == this.getY() + 16
+					&& entityManager.entityList.get(i).colidable){
 				return entityManager.entityList.get(i);
 			}
 		}
@@ -109,7 +111,8 @@ public class Entity extends Sprite {
 	
 	public Entity getDownEntity(){
 		for(int i = 0; i < entityManager.entityList.size(); i++){
-			if(entityManager.entityList.get(i).getX() == this.getX() && entityManager.entityList.get(i).getY() == this.getY() - 16){
+			if(entityManager.entityList.get(i).getX() == this.getX() && entityManager.entityList.get(i).getY() == this.getY() - 16
+					&& entityManager.entityList.get(i).colidable){
 				return entityManager.entityList.get(i);
 			}
 		}
@@ -118,7 +121,8 @@ public class Entity extends Sprite {
 	
 	public Entity getRightEntity(){
 		for(int i = 0; i < entityManager.entityList.size(); i++){
-			if(entityManager.entityList.get(i).getX() == this.getX() + 16 && entityManager.entityList.get(i).getY() == this.getY()){
+			if(entityManager.entityList.get(i).getX() == this.getX() + 16 && entityManager.entityList.get(i).getY() == this.getY()
+					&& entityManager.entityList.get(i).colidable){
 				return entityManager.entityList.get(i);
 			}
 		}
@@ -127,7 +131,8 @@ public class Entity extends Sprite {
 	
 	public Entity getLeftEntity(){
 		for(int i = 0; i < entityManager.entityList.size(); i++){
-			if(entityManager.entityList.get(i).getX() == this.getX() - 16 && entityManager.entityList.get(i).getY() == this.getY()){
+			if(entityManager.entityList.get(i).getX() == this.getX() - 16 && entityManager.entityList.get(i).getY() == this.getY()
+					&& entityManager.entityList.get(i).colidable){
 				return entityManager.entityList.get(i);
 			}
 		}
@@ -135,6 +140,17 @@ public class Entity extends Sprite {
 	}
 	
 	public void update(){
-		
+
+	}
+	
+	public boolean shares(Entity ent){
+		if(this.cell == ent.cell){
+			return true;
+		}
+		return false;
+	}
+	
+	public Type getType(){
+		return type;
 	}
 }

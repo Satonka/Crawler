@@ -1,23 +1,27 @@
-package com.sam.managers;
+package com.sam.managers.loaders;
 
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.XmlReader;
-import com.sam.entities.characters.Character;
+import com.sam.entities.characters.pcs.PlayerCharacter;
+import com.sam.managers.EntityManager;
+import com.sam.managers.PcManager;
 
-public class NpcLoader {
+public class PcLoader {
 
 	public XmlReader	reader;
 	public EntityManager	entityManager;
+	public PcManager	pcmanager;
 	public String 		name, image, xml;
 	public int 			Xpos, Ypos;
-	public Character	charact;
+	public PlayerCharacter	charact;
 	public TiledMap		map;
 	
-	public NpcLoader(String xml1, EntityManager entman, TiledMap mip){
+	public PcLoader(String xml1, PcManager pcman, EntityManager entman, TiledMap mip){
 		reader = new XmlReader();
+		pcmanager = pcman;
 		entityManager = entman;
 		xml = xml1;
 		map = mip;
@@ -31,7 +35,7 @@ public class NpcLoader {
 					image = reader.parse(Gdx.files.internal(xml)).getChild(i).get("image");
 					Xpos = Integer.parseInt(reader.parse(Gdx.files.internal(xml)).getChild(i).get("Xpos"));
 					Ypos = Integer.parseInt(reader.parse(Gdx.files.internal(xml)).getChild(i).get("Ypos"));
-					charact = new Character(name, map, image, Xpos, Ypos, entityManager);
+					charact = new PlayerCharacter(map, image, Xpos, Ypos, entityManager, pcmanager);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

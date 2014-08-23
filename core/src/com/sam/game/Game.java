@@ -2,8 +2,8 @@ package com.sam.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.sam.managers.GameKeys;
 import com.sam.managers.GameStateManager;
+import com.sam.managers.others.GameKeys;
 
 public class Game extends ApplicationAdapter {
 

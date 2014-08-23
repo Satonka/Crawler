@@ -9,12 +9,13 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.sam.entities.characters.Character;
 import com.sam.entities.characters.pcs.PlayerCharacter;
-import com.sam.entities.passageways.StairsUp;
 import com.sam.managers.CameraManager;
-import com.sam.managers.NpcLoader;
-import com.sam.managers.PcLoader;
+import com.sam.managers.loaders.NpcLoader;
+import com.sam.managers.loaders.PassagewayLoader;
+import com.sam.managers.loaders.PcLoader;
 import com.sam.managers.EntityManager;
 import com.sam.managers.LevelManager;
+import com.sam.managers.PassagewayManager;
 import com.sam.managers.PcManager;
 
 public class LevelBase {
@@ -31,23 +32,24 @@ public class LevelBase {
 	public OrthographicCamera cam;
 	public CameraManager	camman;
 	public OrthogonalTiledMapRenderer 	renderer;
-	public StairsUp			stairs;
 	public PcLoader			pcLoad;
 	public EntityManager	entman;
 	public NpcLoader		npcLoad;
+	public PassagewayLoader passload;
+	public PassagewayManager	passman;
 
 	public LevelBase(String mapname, LevelManager lm){
 		mapfile = mapname;
 		levelManager = lm;
 		levelManager.addLevel(this);
-		levelManager.switchToLevel(this);
+		map = new TmxMapLoader().load(mapfile);
 	}
 	
 	public void init() {
-		map = new TmxMapLoader().load(mapfile);
 
 		pcman = new PcManager();
 		entman = new EntityManager();
+		passman = new PassagewayManager();
 		
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
@@ -57,6 +59,9 @@ public class LevelBase {
 		
 		npcLoad = new NpcLoader("npcs.xml", entman, map);
 		npcLoad.load();
+		
+		passload = new PassagewayLoader("Passageways.xml", passman, map, levelManager, entman);
+		passload.load();
 		
 		cam = new OrthographicCamera(WIDTH, HEIGHT); 
 		
@@ -83,8 +88,6 @@ public class LevelBase {
         	entman.entityList.get(i).update();
         }
         
-        System.out.println(entman.entityList.size());
-        
         pcman.pcList.get(0).move();
 	}
 	
@@ -103,5 +106,7 @@ public class LevelBase {
 	}
 	
 	public void dispose() {
+		entman.entityList.clear();
+		passman.passlist.clear();
 	}
 }

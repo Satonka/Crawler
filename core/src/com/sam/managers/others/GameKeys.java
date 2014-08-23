@@ -1,4 +1,4 @@
-package com.sam.managers;
+package com.sam.managers.others;
 
 public class GameKeys {
 	private static boolean[] keys;

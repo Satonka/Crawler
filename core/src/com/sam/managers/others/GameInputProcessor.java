@@ -1,4 +1,4 @@
-package com.sam.managers;
+package com.sam.managers.others;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;

@@ -6,11 +6,13 @@
 		<image>girl.png</image>
 		<Xpos>80</Xpos>
 		<Ypos>416</Ypos>
+		<map>Cave</map>
 	</girl>
 	<skele>
 		<name>Skele</name>
 		<image>skele.png</image>
 		<Xpos>160</Xpos>
 		<Ypos>416</Ypos>
+		<map>Cave</map>
 	</skele>
 </characters>

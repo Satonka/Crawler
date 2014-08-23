@@ -1,25 +1,26 @@
-package com.sam.managers;
+package com.sam.managers.loaders;
 
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.XmlReader;
-import com.sam.entities.characters.pcs.PlayerCharacter;
+import com.sam.entities.characters.Character;
+import com.sam.enums.Type;
+import com.sam.managers.EntityManager;
 
-public class PcLoader {
+public class NpcLoader {
 
 	public XmlReader	reader;
 	public EntityManager	entityManager;
-	public PcManager	pcmanager;
-	public String 		name, image, xml;
+	public Type 		name;
+	public String 		image, xml, mapname;
 	public int 			Xpos, Ypos;
-	public PlayerCharacter	charact;
-	public TiledMap		map;
+	public Character	charact;
+	public TiledMap		map, map2;
 	
-	public PcLoader(String xml1, PcManager pcman, EntityManager entman, TiledMap mip){
+	public NpcLoader(String xml1, EntityManager entman, TiledMap mip){
 		reader = new XmlReader();
-		pcmanager = pcman;
 		entityManager = entman;
 		xml = xml1;
 		map = mip;
@@ -29,12 +30,13 @@ public class PcLoader {
 		try {
 			for(int i = 0; i < reader.parse(Gdx.files.internal(xml)).getChildCount(); i++){
 				try {
-					name = reader.parse(Gdx.files.internal(xml)).getChild(i).get("name");
 					image = reader.parse(Gdx.files.internal(xml)).getChild(i).get("image");
 					Xpos = Integer.parseInt(reader.parse(Gdx.files.internal(xml)).getChild(i).get("Xpos"));
 					Ypos = Integer.parseInt(reader.parse(Gdx.files.internal(xml)).getChild(i).get("Ypos"));
-					charact = new PlayerCharacter(name, map, image, Xpos, Ypos, entityManager, pcmanager);
-					entityManager.add(charact);
+					mapname = reader.parse(Gdx.files.internal(xml)).getChild(i).get("map");
+					if(map.getProperties().containsKey(mapname)){
+						charact = new Character(name, map, image, Xpos, Ypos, entityManager);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
